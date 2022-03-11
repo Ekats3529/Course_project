@@ -1,0 +1,6 @@
+У них был {sing|nomn}
+Нет {sing|gent}
+И велели они {plur|datv}
+Украли {plur|accs}
+Был {sing|ablt}
+Говорили о {plur|loct}
