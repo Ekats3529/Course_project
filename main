@@ -1,0 +1,35 @@
+import pymorphy2
+import spacy
+nlp = spacy.load('ru_core_news_sm')
+morph = pymorphy2.MorphAnalyzer()
+
+cases = ('nomn', 'gent', 'datv', 'accs', 'ablt', 'loct')
+numbers = ('sing', 'plur')
+
+
+def change(word, number, case):
+    word = morph.parse(word)[0]
+    return f"{word.inflect({number, case}).word}".capitalize()
+
+
+def main():
+    fin = open("data/test.txt", encoding="utf8")
+    fout = open("data/out_test.txt", 'w')
+    lines = fin.readlines()
+    print("Введите имя главного героя: ")
+    main_character = input()
+    for line in lines:
+        words = line.split()
+        for word in words:
+            if "{" in word:
+                k = words.index(word)
+                word = word[1:-1:]
+                patterns = word.split("|")
+                word = change(main_character, patterns[0], patterns[1])
+                words[k] = word
+        print(" ".join(words), file = fout)
+    fin.close()
+    fout.close()
+
+
+main()
