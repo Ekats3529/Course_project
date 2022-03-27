@@ -1,20 +1,23 @@
 import pymorphy2
 import spacy
+
 nlp = spacy.load('ru_core_news_sm')
 morph = pymorphy2.MorphAnalyzer()
 
-cases = ('nomn', 'gent', 'datv', 'accs', 'ablt', 'loct')
+
+cases = {'nom': 'nomn', 'gen': 'gent', 'dat': 'datv', 'acc': 'accs', 'abl': 'ablt', 'loc': 'loct'}
 numbers = ('sing', 'plur')
 
 
-def change(word, number, case):
+def replace_noun(word, number, case):
     word = morph.parse(word)[0]
+    case = cases[case]
     return f"{word.inflect({number, case}).word}".capitalize()
 
 
-def main():
+def put_name_in_template(path):
     fin = open("data/test.txt", encoding="utf8")
-    fout = open("data/out_test.txt", 'w')
+    fout = open("data/out_test.txt", 'w', encoding="utf-8")
     lines = fin.readlines()
     print("Введите имя главного героя: ")
     main_character = input()
@@ -25,11 +28,52 @@ def main():
                 k = words.index(word)
                 word = word[1:-1:]
                 patterns = word.split("|")
-                word = change(main_character, patterns[0], patterns[1])
+                word = replace_noun(main_character, patterns[0], patterns[1])
                 words[k] = word
-        print(" ".join(words), file = fout)
+        print(" ".join(words), file=fout)
     fin.close()
     fout.close()
+
+
+def insert_name_in_file(path):
+    fin = open(path, encoding="utf8")
+    fout = open("data/template_out.txt", 'w', encoding="utf-8")
+    lines = fin.readlines()
+    print("Введите имя главного героя: ")
+    main_character = input()
+    for line in lines:
+        words = line.split()
+        for word in words:
+            if "|" in word:
+                k = words.index(word)
+                patterns = word.split("|")
+                word = replace_noun(main_character, patterns[1], patterns[2])
+                words[k] = word
+        print(" ".join(words), file=fout, sep="")
+    fin.close()
+    fout.close()
+
+
+def change_file_to_template(path):
+    fin = open(path, encoding="utf8")
+    fout = open("data/data_out.txt", 'w', encoding="utf-8")
+    names = (fin.readline()).split()
+    lines = fin.readlines()
+    for line in lines:
+        doc = nlp(line)
+        for token in doc:
+            if token.lemma_ in names:
+                pattern = [token.morph.get("Number")[0], token.morph.get("Case")[0]]
+                template = "|" + pattern[0].lower() + "|" + pattern[1].lower() + "|"
+                line = line.replace(token.lemma_, template)
+        print(line, file=fout)
+    fin.close()
+    fout.close()
+
+
+def main():
+    change_file_to_template("data/data.txt")
+    insert_name_in_file("data/template.txt")
 
 
 main()
