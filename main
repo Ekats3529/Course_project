@@ -35,45 +35,67 @@ def put_name_in_template(path):
     fout.close()
 
 
-def insert_name_in_file(path):
-    fin = open(path, encoding="utf8")
+def insert_into_template(words_to_insert_path, template_path):
+    charachters = {}
+    file_to_insert = open(words_to_insert_path, encoding="utf8")
+    template = open(template_path, encoding="utf8")
     fout = open("data/template_out.txt", 'w', encoding="utf-8")
-    lines = fin.readlines()
-    print("Введите имя главного героя: ")
-    main_character = input()
+
+    lines_to_insert = file_to_insert.readlines()
+    for line in lines_to_insert:
+        names = line.split()
+        charachter_type = names[0]
+        charachters[charachter_type] = names[1::]
+
+    lines = template.readlines()
     for line in lines:
         words = line.split()
         for word in words:
             if "|" in word:
                 k = words.index(word)
                 patterns = word.split("|")
-                word = replace_noun(main_character, patterns[1], patterns[2])
+                charachter_type = patterns[1]
+                charachter_name = charachters[charachter_type][int(patterns[2])]
+                word = replace_noun(charachter_name, patterns[3], patterns[4])
                 words[k] = word
         print(" ".join(words), file=fout, sep="")
-    fin.close()
+    file_to_insert.close()
+    template.close()
     fout.close()
 
 
-def change_file_to_template(path):
+def change_tale_to_template(path):
+    charachters = {}
     fin = open(path, encoding="utf8")
     fout = open("data/data_out.txt", 'w', encoding="utf-8")
-    names = (fin.readline()).split()
+    line = fin.readline()
+    while line != "start\n":
+        names = line.split()
+        charachter_type = names[0]
+        charachters[charachter_type] = names[1::]
+        line = fin.readline()
     lines = fin.readlines()
     for line in lines:
         doc = nlp(line)
         for token in doc:
-            if token.lemma_ in names:
-                pattern = [token.morph.get("Number")[0], token.morph.get("Case")[0]]
-                template = "|" + pattern[0].lower() + "|" + pattern[1].lower() + "|"
-                line = line.replace(token.lemma_, template)
+            lemma = token.lemma_
+            for charachter in charachters.items():
+                names = charachter[1]
+                charachter_type = charachter[0]
+                if lemma in names:
+                    name_index = names.index(lemma)
+                    pattern = [token.morph.get("Number")[0], token.morph.get("Case")[0]]
+                    template = "|" + "|".join([charachter_type, str(name_index), pattern[0].lower(), pattern[1].lower()]) + "|"
+                    line = line.replace(token.lemma_, template)
+                    break
         print(line, file=fout)
     fin.close()
     fout.close()
 
 
 def main():
-    change_file_to_template("data/data.txt")
-    insert_name_in_file("data/template.txt")
+    change_tale_to_template("data/data.txt")
+    insert_into_template("data/to_insert_template.txt", "data/template.txt")
 
 
 main()
