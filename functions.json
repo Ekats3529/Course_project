@@ -1,0 +1,81 @@
+{
+"functions":[
+
+{ 	"serial_number": "I"
+	"definition": "отлучка"
+	"designation": "e" 
+	"subfunctions": [{"type_of_function": "e1",  "annotation": "отлучение лиц старшего поколения"},
+				  {"type_of_function": "e2",  "annotation": "смерть родителей"},
+				  {"type_of_function": "e3",  "annotation": "отлучение младших родственников"}],
+},
+
+{ 	"serial_number": "II"
+	"definition": "запрет"
+	"designation": "б" 
+	"subfunctions": [{"type_of_function": "б1",  "annotation": "запрет для героя"},
+				  {"type_of_function": "б2",  "annotation": "приказ или предложение для героя"}],
+},
+
+
+{ 	"serial_number": "III"
+	"definition": "нарушение"
+	"designation": "b" 
+	"subfunctions": [{"type_of_function": "b1",  "annotation": "нарушение запрета"},
+				  {"type_of_function": "b2",  "annotation": "исполнение приказания"}],
+},
+
+{ 	"serial_number": "IV"
+	"definition": "выведывание"
+	"designation": "в" 
+	"subfunctions": [{"type_of_function": "в1",  "annotation": "узнать местопребывание детей, иногда драгоценных предметов"},
+				  {"type_of_function": "в2",  "annotation": "выспрашивание антагониста его жертвой"},
+				  {"type_of_function": "в3",  "annotation": "выведывание через других лиц"}],
+},
+
+{ 	"serial_number": "V"
+	"definition": "выдача"
+	"designation": "w" 
+	"subfunctions": [{"type_of_function": "w1",  "annotation": "антагонист получает непосредственно ответ на свой вопрос"},
+				  {"type_of_function": "w2",  "annotation": "жертва антагониста получает ответ на свой вопрос"},
+				  {"type_of_function": "w3",  "annotation": "другие лица получают ответ на совй вопрос"}],
+},
+
+
+{ 	"serial_number": "VI"
+	"definition": "подвох"
+	"designation": "г" 
+	"subfunctions": [{"type_of_function": "г1",  "annotation": "антагонист принимает чужой облик и действует путем уговоров"},
+				  {"type_of_function": "г2",  "annotation": "антагонист принимает чужой облик и действует непосредственным применением волшебных средств"},
+				  {"type_of_function": "г3",  "annotation": "антагонист принимает чужой облик и действует иными средствами обмана или насилия"}],
+},
+
+{ 	"serial_number": "VII"
+	"definition": "пособничество"
+	"designation": "g" 
+	"subfunctions": [{"type_of_function": "g1",  "annotation": "герой соглашается на все уговоры антагониста"},
+				  {"type_of_function": "g2",  "annotation": "герой механически реагирует на применение волшебных средств"},
+				  {"type_of_function": "g3",  "annotation": "герой механически реагирует на применение иных средств"}],
+},
+
+
+{ 	"serial_number": "VIII"
+	"definition": "вредительство"
+	"designation": "A" 
+	"subfunctions": [{"type_of_function": "A1",  "annotation": "антагонист похищает человека"},
+				  {"type_of_function": "A2",  "annotation": "антагонист похищает или отнимает волшебное средство"},
+				  {"type_of_function": "A3",  "annotation": "антагонист расхищает или портит посев"},
+				  {"type_of_function": "A4",  "annotation": "антагонист похищает дневной свет"},
+				  {"type_of_function": "A5",  "annotation": "антагонист совершение хищение в иных формах"},
+				  {"type_of_function": "A6",  "annotation": "антагонист наносит телесное повреждение"},
+				  {"type_of_function": "A7",  "annotation": "антагонист вызывает внезапное исчезновение"},
+				  {"type_of_function": "A8",  "annotation": "антагонист требует или  выманивает свою жертву"},
+				  {"type_of_function": "A9",  "annotation": "антагонист изгоняет кого-либо"},
+				  {"type_of_function": "A10",  "annotation": "антагонист приказывает кого-либо бросить в море"}],
+},
+
+
+]
+}
+
+
+
